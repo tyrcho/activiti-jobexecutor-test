@@ -1,0 +1,1 @@
+similar issue : http://forums.activiti.org/content/jobexecutor-does-not-cope-simultaneousness
