@@ -1,12 +1,13 @@
 package com.worldline.activiti.exercise.routes;
 
-import java.util.Map.Entry;
+import java.util.Random;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 
 public class WarehouseRouteBuilder extends RouteBuilder {
+	private Random r = new Random();
 
 	@Override
 	public void configure() throws Exception {
@@ -16,11 +17,11 @@ public class WarehouseRouteBuilder extends RouteBuilder {
 	Processor logProcessor = new Processor() {
 		@Override
 		public void process(Exchange exchange) throws Exception {
-			System.out.println("camel properties");
-			for (Entry<String, Object> entry : exchange.getProperties().entrySet()) {
-				System.out.println(entry.getKey() + " => " + entry.getValue());
-			}
-			exchange.getProperties().put("varB", "a value from camel");
+			int pid = Integer.parseInt(exchange.getProperties().get("PROCESS_ID_PROPERTY").toString());
+			int i = Integer.parseInt(exchange.getProperties().get("loopCounter").toString());
+			System.out.printf("pid : %s, loop : %s %n", pid, i);
+			if (r.nextInt(10) % 10 == 0)
+				throw new RuntimeException("exception from Camel");
 		}
 	};
 }

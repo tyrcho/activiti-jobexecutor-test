@@ -3,7 +3,11 @@
   <process id="activiti2Camel" name="activiti2Camel" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
     <endEvent id="endevent1" name="End"></endEvent>
-    <serviceTask id="sendListOfProducts" name="send List of products" activiti:type="camel"></serviceTask>
+    <serviceTask id="sendListOfProducts" name="send List of products" activiti:async="true" activiti:type="camel">
+      <multiInstanceLoopCharacteristics isSequential="false" activiti:elementVariable="i">
+        <loopCardinality>100</loopCardinality>
+      </multiInstanceLoopCharacteristics>
+    </serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="sendListOfProducts"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="sendListOfProducts" targetRef="endevent1"></sequenceFlow>
   </process>

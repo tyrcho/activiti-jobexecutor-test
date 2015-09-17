@@ -6,6 +6,7 @@ import java.util.Map;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class TestActiviti2Camel {
@@ -19,7 +20,11 @@ public class TestActiviti2Camel {
 
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("vara", "value a");
-		runtimeService.startProcessInstanceByKey("activiti2Camel", variables);
+		for (int i = 0; i < 10; i++) {
+			ProcessInstance instance = runtimeService.startProcessInstanceByKey("activiti2Camel", variables);
+			System.out.println("started " + instance.getId());
+		}
+
 	}
 
 }
