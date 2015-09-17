@@ -20,7 +20,7 @@ public class TestActiviti2Camel {
 
 		Map<String, Object> variables = new HashMap<String, Object>();
 		variables.put("vara", "value a");
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < 2000; i++) {
 			ProcessInstance instance = runtimeService.startProcessInstanceByKey("activiti2Camel", variables);
 			System.out.println("started " + instance.getId());
 		}
